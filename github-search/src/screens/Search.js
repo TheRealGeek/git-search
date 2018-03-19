@@ -1,7 +1,58 @@
+// import React, { Component } from "react";
+// import { connect } from "react-redux";
+// import { saveRepos } from "../actions/AppActions";
+
+// class Search extends React.Component {
+//   state = {
+//     search: ""
+//   };
+
+//   searchGithub = () => {
+//     fetch("https://api.github.com/search/repositories?q=" + this.state.search)
+//       .then(resp => resp.json())
+//       .then(respJson => {
+//         this.props.dispatch(saveRepos(respJson.items));
+//       });
+//   };
+
+//   handleSubmit = e => {
+//     e.preventDefault();
+//     this.searchGithub();
+//   };
+//   render() {
+//     return (
+//       <div className="container">
+//         <Header title="Search" />
+//         <hr />
+//         <form onSubmit={this.handleSubmit}>
+//           <input
+//             type="text"
+//             placeholder="search"
+//             value={this.state.search}
+//             onChange={search => {
+//               this.setState({ search: search.target.value });
+//             }}
+//           />
+//           <input type="submit" value="submit" />
+//         </form>
+//       </div>
+//     );
+//   }
+// }
+
+// const mapStateToProps = state => {
+//   return {
+//     repos: state.repos
+//   };
+// };
+
+// export default connect(mapStateToProps)(Search);
+
+import Header from "../components/Header";
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import logo from "./logo.svg";
-import "./App.css";
+//import logo from "../logo.svg";
+import "../App.css";
 
 class App extends Component {
   onHandleChange = e => {
@@ -47,6 +98,7 @@ class App extends Component {
       return <li key={i}>{repo.name}</li>;
     });
     return <div>
+        <Header title='Git Searcher'></Header>
         <h1>{this.props.username}</h1>
         <input type="text" onChange={this.onHandleChange} value={this.props.user} />
         <button onClick={this.onUserSearch}>Search</button>
@@ -67,6 +119,6 @@ const mapStateToProps = state => {
   };
 };
 
-// export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps)(App);
 //how to target a component within a component to clear a VDOM tag --- how to make sure it clears automatically.
 //use the router that uses redux in lesson 7 to display sheets
