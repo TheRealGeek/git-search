@@ -1,7 +1,13 @@
 //import Redux from 'redux';
+const mapStateToProps = state => {
+  return {
+    ...state,
+    query: state.query
+  };
+};
 
 let initialState = {
-    username: '',
+    username: 'TheRealGeek',
     userprofile: {},
     repos: []
 

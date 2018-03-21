@@ -1,18 +1,28 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import Redux from 'redux';
+import {render} from 'react-dom';
 import './index.css';
-import App from './screens/Search.js';
+// import App from './screens/Search.js';
 import registerServiceWorker from './registerServiceWorker';
 //import { render } from "react-dom"; //not used in the bundle
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { Home, Mine, Search } from "./screens";
 import {createStore} from 'redux';
-import {Provider} from 'react-redux'
-import reducer from './reducers/reducer';
+import {Provider,connect} from 'react-redux'
+import reducer from './reducers/reducer.js';
 import Header from './components/Header.js'
 import { createSelector } from 'reselect';
+
+const mapStateToProps = state => {
+  return {
+    username: state.username,
+    userprofile: state.userprofile,
+    repos: state.repos
+  };
+};
+const store = createStore(reducer);
 const Index = ({ store }) => (
-  <Provider store={store}>
+
     <Router>
       <div className= 'wrap'>
         <Header />
@@ -21,18 +31,23 @@ const Index = ({ store }) => (
         <Route path="/mine" component={Mine} />
       </div>
     </Router>
-  </Provider>
+
 );
 
-let store = createStore(reducer);
-ReactDOM.render(
+
+connect(mapStateToProps)(Index);
+
+// ReactDOM.
+render(
   <Provider store={store}>
-    <App />
+    {/* <App /> */}
+    <div>
+      <Index />
+    </div>
   </Provider>,
   document.getElementById("root")
 );
-
-registerServiceWorker();
+//registerServiceWorker();
 
 // const Index = ({ pathname }) => {
 //   switch (pathname) {

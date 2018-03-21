@@ -53,8 +53,18 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 //import logo from "../logo.svg";
 import "../App.css";
+import { BrowserRouter } from 'react-router-dom'
 
-class App extends Component {
+const mapStateToProps = state => {
+  return {
+    username: state.username,
+    userprofile: state.userprofile,
+    repos: state.repos
+  };
+};
+
+
+class Searcher extends Component {
   onHandleChange = e => {
     let { dispatch } = this.props;
     dispatch({ type: "UPDATE_USERNAME", username: e.target.value });
@@ -93,12 +103,13 @@ class App extends Component {
   };
 
   render() {
+
     let { userprofile } = this.props;
     let repos = this.props.repos.map((repo, i) => {
       return <li key={i}>{repo.name}</li>;
     });
-    return <div>
-        <Header title='Git Searcher'></Header>
+    return <div className="container">
+        <Header title='Search'></Header>
         <h1>{this.props.username}</h1>
         <input type="text" onChange={this.onHandleChange} value={this.props.user} />
         <button onClick={this.onUserSearch}>Search</button>
@@ -111,14 +122,8 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    username: state.username,
-    userprofile: state.userprofile,
-    repos: state.repos
-  };
-};
 
-export default connect(mapStateToProps)(App);
+
+export default connect(mapStateToProps)(Searcher);
 //how to target a component within a component to clear a VDOM tag --- how to make sure it clears automatically.
 //use the router that uses redux in lesson 7 to display sheets
